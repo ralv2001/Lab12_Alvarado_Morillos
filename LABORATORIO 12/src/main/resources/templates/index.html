@@ -1,92 +1,198 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Springles</title>
-    <link rel="stylesheet" th:href="@{css/primero.css}">
-    <!-- Enlace al archivo CSS de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      /* CSS personalizado para la imagen de fondo */
-      .bg-image {
-        background-image: url(/img/photos/1.png);
-        background-size: cover;
-        background-position: center;
-        height: 100vh;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Section: Design Block -->
-    <section>
-      <!-- Jumbotron -->
-      <div class="px-4 py-2 px-md-5 text-center text-lg-start bg-image" style="background-image: url(/img/photos/1.png); height: 120vh;">
+<html lang="en">
+<head>
+
+     <title>Team asado 🥩</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/font-awesome.min.css">
+     <link rel="stylesheet" href="css/aos.css">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="css/tooplate-gymso-style.css">
+
+<!--
+Tooplate 2119 Gymso Fitness
+https://www.tooplate.com/view/2119-gymso-fitness
+-->
+</head>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+    <!-- MENU BAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-          <div class="row gx-lg-5 align-items-center">
-            <!-- Cambios en las clases de columnas y margen -->
-            <div class="col-lg-6 col-md-8 col-12 mb-4 mb-lg-0" >
 
-            <h1 class="my-5 display-3 fw-bold ls-tight" style="color:white">
-                Gestiona tus equipos <br />
-                <spam class="text-primary">desde un solo lugar</spam>
-              </h1>
+            <a class="navbar-brand" href="index.html">Team asado 🥩</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item">
+                        <a href="#inicio" class="nav-link smoothScroll">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#general" class="nav-link smoothScroll">General</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#clausura" class="nav-link smoothScroll">Clausuras</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="#apertura" class="nav-link smoothScroll">Aperturas</a>
+                    </li>
+                </ul>
             </div>
-            <!-- Cambios en las clases de columnas y margen -->
-            <div class="col-lg-6 col-md-8 col-12 mb-4 mb-lg-0" style="margin-top: 50px;">
 
-            <form class="form" th:action="@{/submitLoginForm}" method="post">
-                <div class="align-items-center" style="display: flex; justify-content: center; align-items: center;">
-                  <img src="/img/icons/7.png" style="width: 350px;">
-                </div>
-                <div class="flex-column">
-                  <label for="username">Email </label>
-                </div>
-                <div class="inputForm">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail align-middle me-2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                  <input id="username" name="correito" placeholder="Ingresa tu Email" class="input" type="text">
-                </div>
-                <div class="flex-column">
-                  <label for="password">Contraseña </label>
-                </div>
-                <!--...-->
-                <div class="inputForm">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock align-middle me-2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                  <input id="password" name="contrasenagod" placeholder="Ingresa tu contraseña" class="input" type="password">
-                </div>
-                <div class="flex-row">
-                  <div>
-                    <input type="radio">
-                    <label>Recuerdame </label>
-                  </div>
-                  <span class="span">¿Olvidaste tu contraseña?</span>
-                </div>
-
-                <!-- Cuadro de mensaje de error -->
-                <div th:if="${param.error}" class="alert alert-danger" style="margin-top: 10px; margin-bottom: 1px;" role="alert">
-                  <i class="bi bi-exclamation-circle-fill"></i>
-                  <span th:text="${session.SPRING_SECURITY_LAST_EXCEPTION}">Acceso Denegado</span>
-                </div>
-                <!-- Cuadro de mensaje de error -->
-
-                <button type="submit" class="button-submit">Ingresar</button>
-                <p class="p">¿No tienes una cuenta? <span class="span">Registrate</span></p>
-                <div class="flex-row">
-                  <!--...-->
+        </div>
+    </nav>
 
 
-                </div>
-              </form>
+    <!-- HERO -->
+    <section class="hero d-flex flex-column justify-content-center align-items-center" id="inicio">
+
+      <div class="bg-overlay"></div>
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-8 col-md-10 mx-auto col-12">
+            <div class="hero-text mt-5 text-center">
+
+              <h6 data-aos="fade-up" data-aos-delay="300">new way to build a healthy lifestyle!</h6>
+
+              <h1 class="text-white" data-aos="fade-up" data-aos-delay="500">Upgrade your body at Gymso Fitness</h1>
+
+              <a href="#feature" class="btn custom-btn mt-3" data-aos="fade-up" data-aos-delay="600">Get started</a>
+
+              <a href="#about" class="btn custom-btn bordered mt-3" data-aos="fade-up" data-aos-delay="700">learn more</a>
+
             </div>
           </div>
+
         </div>
       </div>
-      <!-- Jumbotron -->
     </section>
-    <!-- Section: Design Block -->
 
-    <!-- Scripts de Bootstrap (jQuery y Popper.js son necesarios para ciertos componentes de Bootstrap) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+     <!-- General -->
+     <section class="schedule section" id="general">
+               <div class="container">
+                    <div class="row">
+
+                            <div class="col-lg-12 col-12 text-center">
+                                <h6 data-aos="fade-up">Esta es la lista de partidos de</h6>
+
+                                <h2 class="text-white" data-aos="fade-up" data-aos-delay="200">Clausura</h2>
+                             </div>
+
+                             <div class="col-lg-12 py-5 col-md-12 col-12">
+                                 <table class="table table-bordered table-responsive schedule-table" data-aos="fade-up" data-aos-delay="300">
+
+                                     <thead class="thead-light">
+                                     <tr>
+                                         <th><i class="fa fa-futbol-o"></i></th>
+                                         <th>Equipo</th>
+                                         <th>Estadio</th>
+                                         <th>Liga</th>
+                                         <th>Partidos Jugados</th>
+                                         <th>Partidos Ganados</th>
+                                         <th>Partidos Perdidos</th>
+                                         <th>Partidos Empatados</th>
+                                         <th>Goles favor</th>
+                                         <th>Goles contra</th>
+                                         <th>Diferencia de goles</th>
+                                         <th>Puntos</th>
+                                        <th>Acciones</th>
+                                     </tr>
+                                     </thead>
+
+                                     <tbody id="bodyClausura">
+                                     </tbody>
+                                 </table>
+                             </div>
+
+                    </div>
+               </div>
+     </section>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+    <script>
+      $.ajax({
+          method: "GET",
+          dataType: "json",
+          url: "http://127.0.0.1:8000/api/liga/",
+      }).done(function (data) {
+          let html = "";
+          for (let i = 0; i < data.length; i++) {
+              if(data[i].liga === "2"){
+                  let index = 1;
+                  html += "<tr>";
+                  html += "<td><small>" + (index) + "</td></small>";
+                  html += "<td><strong>" + data[i].equipo.nombre + "</td></strong>";
+                  html += "<td><strong>" + data[i].equipo.estadio + "</td></strong>";
+                  html += "<td><strong>" + data[i].liga + "</td></strong>";
+                  html += "<td><strong>" + data[i].partidos_jugados + "</td></strong>";
+                  html += "<td><strong>" + data[i].partidos_ganados + "</td></strong>";
+                  html += "<td><strong>" + data[i].partidos_perdidos + "</td></strong>";
+                  html += "<td><strong>" + data[i].partidos_empatados + "</td></strong>";
+                  html += "<td><strong>" + data[i].goles_favor + "</td></strong>";
+                  html += "<td><strong>" + data[i].goles_contra + "</td></strong>";
+                  html += "<td><strong>" + data[i].goles_diferencia + "</td></strong>";
+                  html += "<td><strong>" + data[i].puntos + "</td></strong>";
+                  html += "<td><a href='equipos.html?id=" + data[i].equipo.id + "' class='btn btn-warning'>Detalles</a></td>";
+                  html += "</tr>";
+              }
+          }
+          $("#bodyClausura").html(html);
+      });
+
+    </script>
+
+
+
+     <!-- FOOTER -->
+     <footer class="site-footer">
+          <div class="container">
+               <div class="row">
+
+                    <div class="ml-auto col-lg-4 col-md-5">
+                      <p class="copyright-text">Copyright &copy; 2023
+                        <br>Design: <a href="https://www.tooplate.com">Tooplate</a></p>
+                    </div>
+
+                    <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
+                        <p class="mr-4">
+                            <i class="fa fa-user mr-1"></i>
+                            <a href="#">Alvarado//Morillos</a>
+                        </p>
+
+                        <p><i class="fa fa-phone mr-1"></i>20190057//20193733</p>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+     <!-- SCRIPTS -->
+     <script src="js/jquery.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/aos.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/custom.js"></script>
+
+</body>
 </html>
