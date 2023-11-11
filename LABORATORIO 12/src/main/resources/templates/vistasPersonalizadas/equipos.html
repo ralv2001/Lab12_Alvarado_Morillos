@@ -1,10 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <title>Team asado 🥩</title>
+
   <meta charset="UTF-8">
-  <title>Title</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/aos.css">
+
+  <!-- MAIN CSS -->
+  <link rel="stylesheet" href="../css/tooplate-gymso-style.css">
+
+  <!--
+  Tooplate 2119 Gymso Fitness
+  https://www.tooplate.com/view/2119-gymso-fitness
+  -->
 </head>
-<body>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+<!-- MENU BAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+
+    <a class="navbar-brand" href="index.html">Team asado 🥩</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-lg-auto">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link smoothScroll">Inicio</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="index.html#clausura" class="nav-link smoothScroll">Clausuras</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="index.html#apertura" class="nav-link smoothScroll">Aperturas</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a href="index.html#general" class="nav-link smoothScroll">General</a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- Inicio -->
+<section class="hero d-flex flex-column justify-content-center align-items-center" id="inicio">
+
+  <div class="bg-overlay"></div>
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-8 col-md-10 mx-auto col-12">
+        <div class="hero-text mt-5 text-center">
+
+          <h6 data-aos="fade-up" data-aos-delay="300">¡Bienvenido a la página del Team asado 🥩!</h6>
+
+          <h1 class="text-white" data-aos="fade-up" data-aos-delay="500">Revisa los resultados de las ligas y sus equipos</h1>
+
+          <a href="#equipo" class="btn custom-btn mt-3" data-aos="fade-up" data-aos-delay="600">Ver clausuras</a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Clausura -->
+<section class="schedule section" id="equipo">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-12 col-12 text-center">
+        <h6 data-aos="fade-up">Esta es el detalle de un equipo de</h6>
+
+        <h2 class="text-white" data-aos="fade-up" data-aos-delay="200" id="titulo" >Clausura</h2>
+      </div>
+
+      <div class="col-lg-12 py-5 col-md-12 col-12">
+        <table class="table table-bordered table-responsive schedule-table" data-aos="fade-up" data-aos-delay="300">
+
+          <thead class="thead-light">
+          <tr>
+            <th><i class="fa fa-futbol-o"></i></th>
+            <th>Equipo</th>
+            <th style="width: 10%">Estadio</th>
+            <th style="width: 5%">Partidos Jugados</th>
+            <th style="width: 5%">Partidos Ganados</th>
+            <th style="width: 5%">Partidos Perdidos</th>
+            <th style="width: 5%">Partidos Empatados</th>
+            <th style="width: 5%">Goles favor</th>
+            <th style="width: 5%">Goles contra</th>
+            <th style="width: 5%">Diferencia de goles</th>
+            <th style="width: 5%">Puntos</th>
+            <th style="width: 5%">Resultado</th>
+          </tr>
+          </thead>
+
+          <tbody id="bodyTable">
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+
+      <div class="ml-auto col-lg-4 col-md-5">
+        <p class="copyright-text">Copyright &copy; 2023
+          <br>Design: <a href="https://www.tooplate.com">Tooplate</a></p>
+      </div>
+
+      <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
+        <p class="mr-4">
+          <i class="fa fa-user mr-1"></i>
+          <a href="#">Alvarado - Morillos</a>
+        </p>
+
+        <p><i class="fa fa-code mr-1"></i>20190057 - 20193733</p>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+<script>
+    //ATENCIÓN: Para obtener la URL usaremos un decoder:
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedUrl = urlParams.get('url');
+    const api = decodeURIComponent(encodedUrl);
+    //La documentación se encuentra en: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent
+
+    const titulo = document.getElementById("titulo");
+
+    let equipoId;
+    let listaOrdenada = [];
+
+    $.ajax({
+        method: "GET",
+        dataType: "json",
+        url:"http://127.0.0.1:8000/api/liga/"
+    }).done(function (data){
+        for (let i = 0; i < data.length; i++) {
+            if(data[i].url === api){
+                equipoId = data[i].equipo.id;
+                if (data[i].liga === "1"){
+                    titulo.innerHTML = "Apertura";
+                }
+                if(data[i].liga === "2"){
+                    titulo.innerHTML = "Clausura";
+                }
+            }
+        }
+        listaOrdenada = data.sort(function (a, b) {
+            return (b.puntos - a.puntos);
+        });
+        listaOrdenada.forEach(function(elemento, indicePuesto){
+            elemento.puesto = indicePuesto + 1;
+        })
+
+        $.ajax({
+            method: "GET",
+            dataType: "json",
+            url:"http://127.0.0.1:8000/api/equipos/" + equipoId + "/"
+        }).done(function (result){
+            let html = "";
+            let index = 1;
+            html += "<tr>";
+            html += "<td><small>" + (index) + "</td></small>";
+            html += "<td><strong>" + result.nombre + "</td></strong>";
+            html += "<td><strong>" + result.estadio + "</td></strong>";
+
+
+            listaOrdenada.forEach(function (liga){
+                if(liga.equipo.id === equipoId){
+                    html += "<td><strong>" + liga.partidos_jugados + "</td></strong>";
+                    html += "<td><strong>" + liga.partidos_ganados + "</td></strong>";
+                    html += "<td><strong>" + liga.partidos_perdidos + "</td></strong>";
+                    html += "<td><strong>" + liga.partidos_empatados + "</td></strong>";
+                    html += "<td><strong>" + liga.goles_favor + "</td></strong>";
+                    html += "<td><strong>" + liga.goles_contra + "</td></strong>";
+                    html += "<td><strong>" + liga.goles_diferencia + "</td></strong>";
+                    html += "<td><strong>" + liga.puntos + "</td></strong>";
+                    html += "<td><strong>" + liga.puesto + "° lugar</td></strong>";
+                    html += "</tr>";
+
+                }
+            })
+            $("#bodyTable").html(html);
+        })
+
+
+    })
+
+
+</script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/aos.js"></script>
+<script src="../js/smoothscroll.js"></script>
+<script src="../js/custom.js"></script>
 
 </body>
 </html>

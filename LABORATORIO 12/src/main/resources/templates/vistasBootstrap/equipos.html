@@ -2,9 +2,129 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <title>Equipos</title>
 </head>
 <body>
 
+<header class="header">
+  <nav class="container">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link" href="clausura.html">Clausura</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="apertura.html">Apertura</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="acumulada.html">Acumulada</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <h1 class="pb-2 mb-4 border-bottom" id="titulo">Lista de Ligas/</h1>
+
+    <table class="table table-bordered table-striped">
+
+      <thead class="thead-light">
+      <tr>
+        <th><i class="#"></i></th>
+        <th>Equipo</th>
+        <th style="width: 10%">Estadio</th>
+        <th style="width: 5%">Partidos Jugados</th>
+        <th style="width: 5%">Partidos Ganados</th>
+        <th style="width: 5%">Partidos Perdidos</th>
+        <th style="width: 5%">Partidos Empatados</th>
+        <th style="width: 5%">Goles favor</th>
+        <th style="width: 5%">Goles contra</th>
+        <th style="width: 5%">Diferencia de goles</th>
+        <th style="width: 5%">Puntos</th>
+        <th style="width: 5%">Resultado</th>
+      </tr>
+      </thead>
+
+      <tbody id="bodyTable">
+      </tbody>
+    </table>
+
+  </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+    //ATENCIÓN: Para obtener la URL usaremos un decoder:
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedUrl = urlParams.get('url');
+    const api = decodeURIComponent(encodedUrl);
+    //La documentación se encuentra en: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent
+
+    const titulo = document.getElementById("titulo");
+
+    let equipoId;
+    let listaOrdenada = [];
+
+    $.ajax({
+        method: "GET",
+        dataType: "json",
+        url:"http://127.0.0.1:8000/api/liga/"
+    }).done(function (data){
+        for (let i = 0; i < data.length; i++) {
+            if(data[i].url === api){
+                equipoId = data[i].equipo.id;
+                if (data[i].liga === "1"){
+                    titulo.innerHTML = "Apertura";
+                }
+                if(data[i].liga === "2"){
+                    titulo.innerHTML = "Clausura";
+                }
+            }
+        }
+        listaOrdenada = data.sort(function (a, b) {
+            return (b.puntos - a.puntos);
+        });
+        listaOrdenada.forEach(function(elemento, indicePuesto){
+            elemento.puesto = indicePuesto + 1;
+        })
+
+        $.ajax({
+            method: "GET",
+            dataType: "json",
+            url:"http://127.0.0.1:8000/api/equipos/" + equipoId + "/"
+        }).done(function (result){
+            let html = "";
+            let index = 1;
+            html += "<tr>";
+            html += "<td><small>" + (index) + "</td></small>";
+            html += "<td><strong>" + result.nombre + "</td></strong>";
+            html += "<td><strong>" + result.estadio + "</td></strong>";
+
+
+            listaOrdenada.forEach(function (liga){
+                if(liga.equipo.id === equipoId){
+                    html += "<td><strong>" + liga.partidos_jugados + "</td></strong>";
+                    html += "<td><strong>" + liga.partidos_ganados + "</td></strong>";
+                    html += "<td><strong>" + liga.partidos_perdidos + "</td></strong>";
+                    html += "<td><strong>" + liga.partidos_empatados + "</td></strong>";
+                    html += "<td><strong>" + liga.goles_favor + "</td></strong>";
+                    html += "<td><strong>" + liga.goles_contra + "</td></strong>";
+                    html += "<td><strong>" + liga.goles_diferencia + "</td></strong>";
+                    html += "<td><strong>" + liga.puntos + "</td></strong>";
+                    html += "<td><strong>" + liga.puesto + "° lugar</td></strong>";
+                    html += "</tr>";
+
+                }
+            })
+            $("#bodyTable").html(html);
+        })
+
+
+    })
+
+
+</script>
 </body>
 </html>

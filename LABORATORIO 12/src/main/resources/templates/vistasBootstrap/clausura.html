@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <link href="../css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
   <title>Ligas</title>
 </head>
 <body>
@@ -78,7 +78,9 @@
                 html += "<td><strong>" + data[i].goles_contra + "</td></strong>";
                 html += "<td><strong>" + data[i].goles_diferencia + "</td></strong>";
                 html += "<td><strong>" + data[i].puntos + "</td></strong>";
-                html += "<td><a href='equipos.html?id='" + data[i].id + " class='btn btn-warning'>Detalles</a></td>";
+                //ATENCIÓN: Para el botón usaremos un encoder de URL:
+                html += "<td><a href='equipos.html?url=" + encodeURIComponent(data[i].url) + "' class='btn btn-warning'>Detalles</a></td>";
+                //La documentación se encuentra en: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
                 html += "</tr>";
             }
         }

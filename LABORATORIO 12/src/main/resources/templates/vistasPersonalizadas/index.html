@@ -248,6 +248,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
             dataType: "json",
             url: "http://127.0.0.1:8000/api/liga/",
         }).done(function (data) {
+            console.log(data.length)
             let html = "";
             for (let i = 0; i < data.length; i++) {
                 if(data[i].liga === "2"){
@@ -265,7 +266,9 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     html += "<td><strong>" + data[i].goles_contra + "</td></strong>";
                     html += "<td><strong>" + data[i].goles_diferencia + "</td></strong>";
                     html += "<td><strong>" + data[i].puntos + "</td></strong>";
-                    html += "<td><a href='equipos.html?id='" + data[i].id + " class='btn btn-warning'>Detalles</a></td>";
+                    //ATENCIÓN: Para el botón usaremos un encoder de URL:
+                    html += "<td><a href='equipos.html?url=" + encodeURIComponent(data[i].url) + "' class='btn btn-warning'>Detalles</a></td>";
+                    //La documentación se encuentra en: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent                    html += "</tr>";
                     html += "</tr>";
                 }
             }
