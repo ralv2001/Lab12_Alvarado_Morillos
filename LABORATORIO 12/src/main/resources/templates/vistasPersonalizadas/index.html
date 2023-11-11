@@ -11,12 +11,12 @@
      <meta name="author" content="">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-     <link rel="stylesheet" href="css/bootstrap.min.css">
-     <link rel="stylesheet" href="css/font-awesome.min.css">
-     <link rel="stylesheet" href="css/aos.css">
+     <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="../css/font-awesome.min.css">
+     <link rel="stylesheet" href="../css/aos.css">
 
      <!-- MAIN CSS -->
-     <link rel="stylesheet" href="css/tooplate-gymso-style.css">
+     <link rel="stylesheet" href="../css/tooplate-gymso-style.css">
 
 <!--
 Tooplate 2119 Gymso Fitness
@@ -211,40 +211,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
       </div>
     </section>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-
-    <script>
-      $.ajax({
-          method: "GET",
-          dataType: "json",
-          url: "http://127.0.0.1:8000/api/liga/",
-      }).done(function (data) {
-          let html = "";
-          for (let i = 0; i < data.length; i++) {
-              if(data[i].liga === "2"){
-                  let index = 1;
-                  html += "<tr>";
-                  html += "<td><small>" + (index) + "</td></small>";
-                  html += "<td><strong>" + data[i].equipo.nombre + "</td></strong>";
-                  html += "<td><strong>" + data[i].equipo.estadio + "</td></strong>";
-                  html += "<td><strong>" + data[i].liga + "</td></strong>";
-                  html += "<td><strong>" + data[i].partidos_jugados + "</td></strong>";
-                  html += "<td><strong>" + data[i].partidos_ganados + "</td></strong>";
-                  html += "<td><strong>" + data[i].partidos_perdidos + "</td></strong>";
-                  html += "<td><strong>" + data[i].partidos_empatados + "</td></strong>";
-                  html += "<td><strong>" + data[i].goles_favor + "</td></strong>";
-                  html += "<td><strong>" + data[i].goles_contra + "</td></strong>";
-                  html += "<td><strong>" + data[i].goles_diferencia + "</td></strong>";
-                  html += "<td><strong>" + data[i].puntos + "</td></strong>";
-                  html += "<td><a href='equipos.html?id=" + data[i].equipo.id + "' class='btn btn-warning'>Detalles</a></td>";
-                  html += "</tr>";
-              }
-          }
-          $("#bodyClausura").html(html);
-      });
-
-    </script>
 
 
 
@@ -272,11 +239,44 @@ https://www.tooplate.com/view/2119-gymso-fitness
      </footer>
 
      <!-- SCRIPTS -->
-     <script src="js/jquery.min.js"></script>
-     <script src="js/bootstrap.min.js"></script>
-     <script src="js/aos.js"></script>
-     <script src="js/smoothscroll.js"></script>
-     <script src="js/custom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+    <script>
+        $.ajax({
+            method: "GET",
+            dataType: "json",
+            url: "http://127.0.0.1:8000/api/liga/",
+        }).done(function (data) {
+            let html = "";
+            for (let i = 0; i < data.length; i++) {
+                if(data[i].liga === "2"){
+                    let index = 1;
+                    html += "<tr>";
+                    html += "<td><small>" + (index) + "</td></small>";
+                    html += "<td><strong>" + data[i].equipo.nombre + "</td></strong>";
+                    html += "<td><strong>" + data[i].equipo.estadio + "</td></strong>";
+                    html += "<td><strong>" + data[i].liga + "</td></strong>";
+                    html += "<td><strong>" + data[i].partidos_jugados + "</td></strong>";
+                    html += "<td><strong>" + data[i].partidos_ganados + "</td></strong>";
+                    html += "<td><strong>" + data[i].partidos_perdidos + "</td></strong>";
+                    html += "<td><strong>" + data[i].partidos_empatados + "</td></strong>";
+                    html += "<td><strong>" + data[i].goles_favor + "</td></strong>";
+                    html += "<td><strong>" + data[i].goles_contra + "</td></strong>";
+                    html += "<td><strong>" + data[i].goles_diferencia + "</td></strong>";
+                    html += "<td><strong>" + data[i].puntos + "</td></strong>";
+                    html += "<td><a href=" + data[i].equipo.id + "'equipos.html?id=' class='btn btn-warning'>Detalles</a></td>";
+                    html += "</tr>";
+                }
+            }
+            $("#bodyClausura").html(html);
+        });
+
+    </script>
+     <script src="../js/bootstrap.min.js"></script>
+     <script src="../js/aos.js"></script>
+     <script src="../js/smoothscroll.js"></script>
+     <script src="../js/custom.js"></script>
 
 </body>
 </html>

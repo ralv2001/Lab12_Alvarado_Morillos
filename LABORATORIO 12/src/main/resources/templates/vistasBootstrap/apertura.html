@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link href="../css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <title>Ligas</title>
+</head>
+<body>
+<header class="header">
+  <nav class="container">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link" href="clausura.html">Clausura</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="apertura.html">Apertura</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="acumulada.html">Acumulada</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <h1 class="pb-2 mb-4 border-bottom">Lista de Ligas/Apertura</h1>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th><i class="#"></i></th>
+        <th>Equipo</th>
+        <th style="width: 10%">Estadio</th>
+        <th style="width: 5%">Liga</th>
+        <th style="width: 5%">Partidos Jugados</th>
+        <th style="width: 5%">Partidos Ganados</th>
+        <th style="width: 5%">Partidos Perdidos</th>
+        <th style="width: 5%">Partidos Empatados</th>
+        <th style="width: 5%">Goles favor</th>
+        <th style="width: 5%">Goles contra</th>
+        <th style="width: 5%">Diferencia de goles</th>
+        <th style="width: 5%">Puntos</th>
+        <th style="width: 5%">Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody id="bodyClausura">
+      </tbody>
+    </table>
+
+  </div>
+</main>
+
+</body>
+</html>
