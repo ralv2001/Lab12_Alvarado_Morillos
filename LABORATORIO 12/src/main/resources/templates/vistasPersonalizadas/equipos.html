@@ -204,7 +204,7 @@
 
 
             listaOrdenada.forEach(function (liga){
-                if(liga.equipo.id === equipoId){
+                if(liga.equipo.id === equipoId && liga.liga === "2"){
                     html += "<td><strong>" + liga.partidos_jugados + "</td></strong>";
                     html += "<td><strong>" + liga.partidos_ganados + "</td></strong>";
                     html += "<td><strong>" + liga.partidos_perdidos + "</td></strong>";
