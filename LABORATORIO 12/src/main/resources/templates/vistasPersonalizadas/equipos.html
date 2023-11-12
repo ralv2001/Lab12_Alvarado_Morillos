@@ -159,6 +159,8 @@
 
     let equipoId;
     let listaOrdenada = [];
+    let listaDesordenadaClausura = [];
+    let listaDesordenadaApertura = [];
     let idLiga;
 
     $.ajax({
@@ -178,13 +180,30 @@
                     idLiga = "2";
                 }
             }
+          if (data[i].liga === "1"){
+            listaDesordenadaApertura.push(data[i]);
+          }
+          if(data[i].liga === "2"){
+            listaDesordenadaClausura.push(data[i]);
+          }
         }
-        listaOrdenada = data.sort(function (a, b) {
+        if(idLiga === "1") {
+          listaOrdenada = listaDesordenadaApertura.sort(function (a, b) {
             return (b.puntos - a.puntos);
-        });
-        listaOrdenada.forEach(function(elemento, indicePuesto){
+          });
+          listaOrdenada.forEach(function (elemento, indicePuesto) {
             elemento.puesto = indicePuesto + 1;
-        })
+          })
+        }
+        if(idLiga === "2"){
+          listaOrdenada = listaDesordenadaClausura.sort(function (a, b) {
+            return (b.puntos - a.puntos);
+          });
+          listaOrdenada.forEach(function (elemento, indicePuesto) {
+            elemento.puesto = indicePuesto + 1;
+          })
+        }
+
 
         $.ajax({
             method: "GET",
