@@ -248,9 +248,9 @@ https://www.tooplate.com/view/2119-gymso-fitness
         }).done(function (data) {
             console.log(data.length)
             let html = "";
+            let index = 1;
             for (let i = 0; i < data.length; i++) {
                 if(data[i].liga === "2"){
-                    let index = 1;
                     html += "<tr>";
                     html += "<td><small>" + (index) + "</td></small>";
                     html += "<td><strong>" + data[i].equipo.nombre + "</td></strong>";
@@ -267,6 +267,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
                     html += "<td><a href='equipos.html?url=" + encodeURIComponent(data[i].url) + "' class='btn btn-warning'>Detalles</a></td>";
                     //La documentación se encuentra en: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent                    html += "</tr>";
                     html += "</tr>";
+                    index++;
                 }
             }
             $("#bodyClausura").html(html);
