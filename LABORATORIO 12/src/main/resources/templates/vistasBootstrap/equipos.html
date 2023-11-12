@@ -32,15 +32,8 @@
       <thead class="thead-light">
       <tr>
         <th><i class="#"></i></th>
-        <th>Equipo</th>
-        <th style="width: 10%">Estadio</th>
-        <th style="width: 5%">Partidos Jugados</th>
-        <th style="width: 5%">Partidos Ganados</th>
-        <th style="width: 5%">Partidos Perdidos</th>
-        <th style="width: 5%">Partidos Empatados</th>
-        <th style="width: 5%">Goles favor</th>
-        <th style="width: 5%">Goles contra</th>
-        <th style="width: 5%">Diferencia de goles</th>
+        <th style="width: 15%">Equipo</th>
+        <th style="width: 15%">Estadio</th>
         <th style="width: 5%">Puntos</th>
         <th style="width: 5%">Resultado</th>
       </tr>
@@ -66,6 +59,9 @@
 
     let equipoId;
     let listaOrdenada = [];
+    let listaDesordenadaClausura = [];
+    let listaDesordenadaApertura = [];
+    let idLiga;
 
     $.ajax({
         method: "GET",
@@ -77,18 +73,37 @@
                 equipoId = data[i].equipo.id;
                 if (data[i].liga === "1"){
                     titulo.innerHTML = "Apertura";
+                    idLiga = "1";
                 }
                 if(data[i].liga === "2"){
                     titulo.innerHTML = "Clausura";
+                    idLiga = "2";
                 }
             }
+            if (data[i].liga === "1"){
+                listaDesordenadaApertura.push(data[i]);
+            }
+            if(data[i].liga === "2"){
+                listaDesordenadaClausura.push(data[i]);
+            }
         }
-        listaOrdenada = data.sort(function (a, b) {
-            return (b.puntos - a.puntos);
-        });
-        listaOrdenada.forEach(function(elemento, indicePuesto){
-            elemento.puesto = indicePuesto + 1;
-        })
+        if(idLiga === "1") {
+            listaOrdenada = listaDesordenadaApertura.sort(function (a, b) {
+                return (b.puntos - a.puntos);
+            });
+            listaOrdenada.forEach(function (elemento, indicePuesto) {
+                elemento.puesto = indicePuesto + 1;
+            })
+        }
+        if(idLiga === "2"){
+            listaOrdenada = listaDesordenadaClausura.sort(function (a, b) {
+                return (b.puntos - a.puntos);
+            });
+            listaOrdenada.forEach(function (elemento, indicePuesto) {
+                elemento.puesto = indicePuesto + 1;
+            })
+        }
+
 
         $.ajax({
             method: "GET",
@@ -98,20 +113,13 @@
             let html = "";
             let index = 1;
             html += "<tr>";
-            html += "<td><small>" + (index) + "</td></small>";
+            html += "<td><strong>" + (index) + "</td></strong>";
             html += "<td><strong>" + result.nombre + "</td></strong>";
             html += "<td><strong>" + result.estadio + "</td></strong>";
 
 
             listaOrdenada.forEach(function (liga){
-                if(liga.equipo.id === equipoId){
-                    html += "<td><strong>" + liga.partidos_jugados + "</td></strong>";
-                    html += "<td><strong>" + liga.partidos_ganados + "</td></strong>";
-                    html += "<td><strong>" + liga.partidos_perdidos + "</td></strong>";
-                    html += "<td><strong>" + liga.partidos_empatados + "</td></strong>";
-                    html += "<td><strong>" + liga.goles_favor + "</td></strong>";
-                    html += "<td><strong>" + liga.goles_contra + "</td></strong>";
-                    html += "<td><strong>" + liga.goles_diferencia + "</td></strong>";
+                if(liga.equipo.id === equipoId && liga.liga === idLiga){
                     html += "<td><strong>" + liga.puntos + "</td></strong>";
                     html += "<td><strong>" + liga.puesto + "° lugar</td></strong>";
                     html += "</tr>";

@@ -30,9 +30,7 @@
       <thead>
       <tr>
         <th>#</th>
-        <th>Equipo</th>
-        <th style="width: 10%">Estadio</th>
-        <th style="width: 5%">Liga</th>
+        <th style="width: 20%">Equipo</th>
         <th style="width: 5%">Partidos Jugados</th>
         <th style="width: 5%">Partidos Ganados</th>
         <th style="width: 5%">Partidos Perdidos</th>
@@ -45,12 +43,48 @@
       </tr>
       </thead>
 
-      <tbody id="bodyClausura">
+      <tbody id="bodyApertura">
       </tbody>
     </table>
 
   </div>
 </main>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- SCRIPT DE APERTURA -->
+<script>
+    $.ajax({
+        method: "GET",
+        dataType: "json",
+        url: "http://127.0.0.1:8000/api/liga/",
+    }).done(function (data) {
+        console.log(data.length)
+        let html = "";
+        let index = 1;
+        for (let i = 0; i < data.length; i++) {
+            if(data[i].liga === "1"){
+                html += "<tr>";
+                html += "<td><strong>" + (index) + "</td></strong>";
+                html += "<td>" + data[i].equipo.nombre + "</td>";
+                html += "<td>" + data[i].partidos_jugados + "</td>";
+                html += "<td>" + data[i].partidos_ganados + "</td>";
+                html += "<td>" + data[i].partidos_perdidos + "</td>";
+                html += "<td>" + data[i].partidos_empatados + "</td>";
+                html += "<td>" + data[i].goles_favor + "</td>";
+                html += "<td>" + data[i].goles_contra + "</td>";
+                html += "<td>" + data[i].goles_diferencia + "</td>";
+                html += "<td>" + data[i].puntos + "</td>";
+                //ATENCIÓN: Para el botón usaremos un encoder de URL:
+                html += "<td><a href='equipos.html?url=" + encodeURIComponent(data[i].url) + "' class='btn btn-warning'>Detalles</a></td>";
+                //La documentación se encuentra en: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent                    html += "</tr>";
+                html += "</tr>";
+                index++;
+            }
+        }
+        $("#bodyApertura").html(html);
+    });
+
+</script>
 
 </body>
 </html>
